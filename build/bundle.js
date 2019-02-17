@@ -105,7 +105,7 @@ eval("module.exports = {\"name\":\"tswebpack\",\"version\":\"1.0.1\",\"main\":\"
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst express = __webpack_require__(/*! express */ \"express\");\nconst bodyParser = __webpack_require__(/*! body-parser */ \"body-parser\");\nconst home_routes_1 = __webpack_require__(/*! ./gateways/home.routes */ \"./src/gateways/home.routes.ts\");\nconst dotenv = __webpack_require__(/*! dotenv */ \"dotenv\");\ndotenv.config();\nclass App {\n    constructor() {\n        this.routePrv = new home_routes_1.Routes();\n        this.app = express();\n        this.config();\n        this.routePrv.routes(this.app);\n    }\n    config() {\n        this.app.set('port', process.env.PORT || 3000);\n        this.app.set('env', process.env.DEV || 'development');\n        this.app.use(bodyParser.json());\n        this.app.use(bodyParser.urlencoded({ extended: true }));\n        this.app.use(express.static('public'));\n    }\n}\nexports.default = new App().app;\n\n\n//# sourceURL=webpack:///./src/app.express.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst express = __webpack_require__(/*! express */ \"express\");\nconst bodyParser = __webpack_require__(/*! body-parser */ \"body-parser\");\nconst gateways_1 = __webpack_require__(/*! ./gateways */ \"./src/gateways/index.ts\");\nconst dotenv = __webpack_require__(/*! dotenv */ \"dotenv\");\ndotenv.config();\nclass App {\n    constructor() {\n        this.homeRoutes = new gateways_1.HomeRoutes();\n        this.toursRoutes = new gateways_1.ToursRoutes();\n        this.app = express();\n        this.config();\n        this.homeRoutes.routes(this.app);\n        this.toursRoutes.routes(this.app);\n    }\n    config() {\n        this.app.set('port', process.env.PORT || 3000);\n        this.app.set('env', process.env.DEV || 'development');\n        this.app.use(bodyParser.json());\n        this.app.use(bodyParser.urlencoded({ extended: true }));\n        this.app.use(express.static('public'));\n    }\n}\nexports.default = new App().app;\n\n\n//# sourceURL=webpack:///./src/app.express.ts?");
 
 /***/ }),
 
@@ -121,6 +121,64 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst 
 
 /***/ }),
 
+/***/ "./src/controllers/index.ts":
+/*!**********************************!*\
+  !*** ./src/controllers/index.ts ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nfunction __export(m) {\n    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];\n}\nObject.defineProperty(exports, \"__esModule\", { value: true });\n__export(__webpack_require__(/*! ./home.controller */ \"./src/controllers/home.controller.ts\"));\n__export(__webpack_require__(/*! ./tours.controller */ \"./src/controllers/tours.controller.ts\"));\n\n\n//# sourceURL=webpack:///./src/controllers/index.ts?");
+
+/***/ }),
+
+/***/ "./src/controllers/tours.controller.ts":
+/*!*********************************************!*\
+  !*** ./src/controllers/tours.controller.ts ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst data_1 = __webpack_require__(/*! ../data/data */ \"./src/data/data.ts\");\nclass ToursController {\n    getTours(req, res) {\n        res.status(200).send(data_1.DataStore.tours);\n    }\n}\nexports.ToursController = ToursController;\n\n\n//# sourceURL=webpack:///./src/controllers/tours.controller.ts?");
+
+/***/ }),
+
+/***/ "./src/data/data.ts":
+/*!**************************!*\
+  !*** ./src/data/data.ts ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst jsonTours = __webpack_require__(/*! ./tours.json */ \"./src/data/tours.json\");\nconst jsonReviews = __webpack_require__(/*! ./reviews.json */ \"./src/data/reviews.json\");\nclass DataStore {\n}\nDataStore.tours = jsonTours;\nDataStore.reviews = jsonReviews;\nexports.DataStore = DataStore;\n\n\n//# sourceURL=webpack:///./src/data/data.ts?");
+
+/***/ }),
+
+/***/ "./src/data/reviews.json":
+/*!*******************************!*\
+  !*** ./src/data/reviews.json ***!
+  \*******************************/
+/*! exports provided: 0, 1, default */
+/***/ (function(module) {
+
+eval("module.exports = [{\"tourID\":\"id-0\",\"reviewTitle\":\"Great value for money\",\"reviewLongText\":\"This is one of the best experiences I have had in Paris, great price and great tour!\",\"stars\":5},{\"tourID\":\"id-0\",\"reviewTitle\":\"Paris is beautiful in the evening\",\"reviewLongText\":\"This was a nice tour! However, the Audio Guide didn't work.\",\"stars\":4}];\n\n//# sourceURL=webpack:///./src/data/reviews.json?");
+
+/***/ }),
+
+/***/ "./src/data/tours.json":
+/*!*****************************!*\
+  !*** ./src/data/tours.json ***!
+  \*****************************/
+/*! exports provided: 0, 1, default */
+/***/ (function(module) {
+
+eval("module.exports = [{\"id\":\"id-0\",\"location\":\"Paris\",\"tourTitle\":\"Paris 1-Hour Night Cruise\",\"tourCategory\":\"Sailing and Water Tours\",\"tourDescription\":\"Take a night cruise of the River Seine and see Paris illuminated for the night.\",\"price\":20,\"currency\":\"EUR\"},{\"id\":\"id-1\",\"location\":\"New York\",\"tourTitle\":\"Private City Walking Tour\",\"tourCategory\":\"Sightseeing\",\"tourDescription\":\"Get to know New York City on a 4- or 8-hour walking tour with a private guide\",\"price\":190,\"currency\":\"USD\"}];\n\n//# sourceURL=webpack:///./src/data/tours.json?");
+
+/***/ }),
+
 /***/ "./src/gateways/home.routes.ts":
 /*!*************************************!*\
   !*** ./src/gateways/home.routes.ts ***!
@@ -129,7 +187,31 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst home_controller_1 = __webpack_require__(/*! ../controllers/home.controller */ \"./src/controllers/home.controller.ts\");\nclass Routes {\n    constructor() {\n        this.homeController = new home_controller_1.HomeController();\n    }\n    routes(app) {\n        app.route('/')\n            .get(this.homeController.getContacts);\n    }\n}\nexports.Routes = Routes;\n\n\n//# sourceURL=webpack:///./src/gateways/home.routes.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst controllers_1 = __webpack_require__(/*! ../controllers */ \"./src/controllers/index.ts\");\nclass HomeRoutes {\n    constructor() {\n        this.homeController = new controllers_1.HomeController();\n    }\n    routes(app) {\n        app.route('/')\n            .get(this.homeController.getContacts);\n    }\n}\nexports.HomeRoutes = HomeRoutes;\n\n\n//# sourceURL=webpack:///./src/gateways/home.routes.ts?");
+
+/***/ }),
+
+/***/ "./src/gateways/index.ts":
+/*!*******************************!*\
+  !*** ./src/gateways/index.ts ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nfunction __export(m) {\n    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];\n}\nObject.defineProperty(exports, \"__esModule\", { value: true });\n__export(__webpack_require__(/*! ./home.routes */ \"./src/gateways/home.routes.ts\"));\n__export(__webpack_require__(/*! ./tours.routes */ \"./src/gateways/tours.routes.ts\"));\n\n\n//# sourceURL=webpack:///./src/gateways/index.ts?");
+
+/***/ }),
+
+/***/ "./src/gateways/tours.routes.ts":
+/*!**************************************!*\
+  !*** ./src/gateways/tours.routes.ts ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst controllers_1 = __webpack_require__(/*! ../controllers */ \"./src/controllers/index.ts\");\nclass ToursRoutes {\n    constructor() {\n        this.toursController = new controllers_1.ToursController();\n    }\n    routes(app) {\n        app.route('/tours')\n            .get(this.toursController.getTours);\n    }\n}\nexports.ToursRoutes = ToursRoutes;\n\n\n//# sourceURL=webpack:///./src/gateways/tours.routes.ts?");
 
 /***/ }),
 

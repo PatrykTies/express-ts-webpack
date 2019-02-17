@@ -1,15 +1,15 @@
 
 import {Request, Response, NextFunction} from "express";
-import { HomeController } from "../controllers";
+import { ToursController } from "../controllers";
 
-export class HomeRoutes { 
+export class ToursRoutes { 
     
-    public homeController: HomeController = new HomeController() 
+    public toursController: ToursController = new ToursController() 
     
     public routes(app: any): void {   
         
-        app.route('/')
-        .get(this.homeController.getContacts)         
+        app.route('/tours')
+        .get(this.toursController.getTours)         
   
         
         // // Contact 

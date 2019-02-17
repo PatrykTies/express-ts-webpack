@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
-import { Routes } from "./gateways/home.routes";
+import { HomeRoutes, ToursRoutes } from "./gateways";
 import * as dotenv from 'dotenv'
 
 // .env file reader
@@ -10,14 +10,16 @@ dotenv.config();
 class App {
 
     public app: express.Application;
-    public routePrv: Routes = new Routes();
+    public homeRoutes: HomeRoutes = new HomeRoutes();
+    public toursRoutes: ToursRoutes = new ToursRoutes();
     // public mongoUrl: string = 'mongodb://localhost/CRMdb';  
     //public mongoUrl: string = 'mongodb://dalenguyen:123123@localhost:27017/CRMdb';
 
     constructor() {
         this.app = express();
         this.config();        
-        this.routePrv.routes(this.app);     
+        this.homeRoutes.routes(this.app); 
+        this.toursRoutes.routes(this.app);     
         //this.mongoSetup();
     }
 
