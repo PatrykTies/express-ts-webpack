@@ -14,15 +14,10 @@ export class HomeController{
 
     public getContacts (req: Request, res: Response) {           
       
-        res.json({
+        res.status(200).send({
             message: 'Welcome to API sekeleton.',
             version: pkg.version,
         });
-
-        // res.status(200).send({
-        //     message: 'Welcome to API sekeleton.',
-        //     version: pkg.version,
-        // });
     }
 }
 

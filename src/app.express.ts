@@ -30,6 +30,12 @@ class App {
         this.app.use(bodyParser.urlencoded({ extended: true })); //changed from false
         // serving static files 
         this.app.use(express.static('public'));
+
+        // this.app.listen(this.app.get('port'), () => {
+        //     console.log(('App is running at http://localhost:%d in %s mode'),
+        //       this.app.get('port'), this.app.get('env'));
+        //     console.log('Press CTRL-C to stop\n');
+        //   });
     }
 
     // private mongoSetup(): void{
