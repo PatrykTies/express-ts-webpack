@@ -93,7 +93,19 @@
 /*! exports provided: name, version, main, scripts, license, devDependencies, dependencies, default */
 /***/ (function(module) {
 
-eval("module.exports = {\"name\":\"tswebpack\",\"version\":\"1.0.0\",\"main\":\"index.js\",\"scripts\":{\"clean\":\"rimraf build\",\"prestart\":\"npm run clean\",\"start\":\"webpack --watch --config webpack.config.js\"},\"license\":\"MIT\",\"devDependencies\":{\"@types/body-parser\":\"^1.17.0\",\"@types/dotenv\":\"^6.1.0\",\"@types/express\":\"^4.16.1\",\"nodemon\":\"^1.18.10\",\"rimraf\":\"^2.6.3\",\"ts-loader\":\"^5.3.3\",\"ts-node\":\"^8.0.2\",\"tslint\":\"^5.12.1\",\"typescript\":\"^3.3.3\",\"webpack\":\"^4.29.4\",\"webpack-cli\":\"^3.2.3\",\"webpack-shell-plugin\":\"^0.5.0\"},\"dependencies\":{\"body-parser\":\"^1.18.3\",\"dotenv\":\"^6.2.0\",\"express\":\"^4.16.4\"}};\n\n//# sourceURL=webpack:///./package.json?");
+eval("module.exports = {\"name\":\"tswebpack\",\"version\":\"1.0.1\",\"main\":\"index.js\",\"scripts\":{\"clean\":\"rimraf build\",\"prestart\":\"npm run clean\",\"start\":\"webpack --watch --config webpack.config.js\"},\"license\":\"MIT\",\"devDependencies\":{\"@types/body-parser\":\"^1.17.0\",\"@types/dotenv\":\"^6.1.0\",\"@types/express\":\"^4.16.1\",\"nodemon\":\"^1.18.10\",\"rimraf\":\"^2.6.3\",\"ts-loader\":\"^5.3.3\",\"ts-node\":\"^8.0.2\",\"tslint\":\"^5.12.1\",\"typescript\":\"^3.3.3\",\"webpack\":\"^4.29.4\",\"webpack-cli\":\"^3.2.3\",\"webpack-shell-plugin\":\"^0.5.0\"},\"dependencies\":{\"body-parser\":\"^1.18.3\",\"dotenv\":\"^6.2.0\",\"express\":\"^4.16.4\"}};\n\n//# sourceURL=webpack:///./package.json?");
+
+/***/ }),
+
+/***/ "./src/app.express.ts":
+/*!****************************!*\
+  !*** ./src/app.express.ts ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst express = __webpack_require__(/*! express */ \"express\");\nconst bodyParser = __webpack_require__(/*! body-parser */ \"body-parser\");\nconst home_routes_1 = __webpack_require__(/*! ./gateways/home.routes */ \"./src/gateways/home.routes.ts\");\nconst dotenv = __webpack_require__(/*! dotenv */ \"dotenv\");\ndotenv.config();\nclass App {\n    constructor() {\n        this.routePrv = new home_routes_1.Routes();\n        this.app = express();\n        this.config();\n        this.routePrv.routes(this.app);\n    }\n    config() {\n        this.app.set('port', process.env.PORT || 3000);\n        this.app.set('env', process.env.DEV || 'development');\n        this.app.use(bodyParser.json());\n        this.app.use(bodyParser.urlencoded({ extended: true }));\n        this.app.use(express.static('public'));\n    }\n}\nexports.default = new App().app;\n\n\n//# sourceURL=webpack:///./src/app.express.ts?");
 
 /***/ }),
 
@@ -105,7 +117,19 @@ eval("module.exports = {\"name\":\"tswebpack\",\"version\":\"1.0.0\",\"main\":\"
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nlet pkg = __webpack_require__(/*! ./src/controllers/../../package.json */ \"./package.json\");\nexports.index = (req, res) => {\n    res.json({\n        message: 'Welcome to API sekeleton.',\n        version: pkg.version,\n    });\n};\n\n\n//# sourceURL=webpack:///./src/controllers/home.controller.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst pkg = __webpack_require__(/*! ../../package.json */ \"./package.json\");\nclass HomeController {\n    getContacts(req, res) {\n        res.json({\n            message: 'Welcome to API sekeleton.',\n            version: pkg.version,\n        });\n    }\n}\nexports.HomeController = HomeController;\n\n\n//# sourceURL=webpack:///./src/controllers/home.controller.ts?");
+
+/***/ }),
+
+/***/ "./src/gateways/home.routes.ts":
+/*!*************************************!*\
+  !*** ./src/gateways/home.routes.ts ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst home_controller_1 = __webpack_require__(/*! ../controllers/home.controller */ \"./src/controllers/home.controller.ts\");\nclass Routes {\n    constructor() {\n        this.homeController = new home_controller_1.HomeController();\n    }\n    routes(app) {\n        app.route('/')\n            .get(this.homeController.getContacts);\n    }\n}\nexports.Routes = Routes;\n\n\n//# sourceURL=webpack:///./src/gateways/home.routes.ts?");
 
 /***/ }),
 
@@ -117,7 +141,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nlet pk
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst express = __webpack_require__(/*! express */ \"express\");\nconst dotenv = __webpack_require__(/*! dotenv */ \"dotenv\");\nconst bodyParser = __webpack_require__(/*! body-parser */ \"body-parser\");\nconst homeController = __webpack_require__(/*! ./controllers/home.controller */ \"./src/controllers/home.controller.ts\");\ndotenv.config();\nconst app = express();\napp.set('port', process.env.PORT || 3000);\napp.use(bodyParser.json());\napp.use(bodyParser.urlencoded({ extended: true }));\napp.get('/', homeController.index);\napp.listen(app.get('port'), () => {\n    console.log(('App is running at http://localhost:%d in %s mode'), app.get('port'), app.get('env'));\n    console.log('Press CTRL-C to stop\\n');\n});\nmodule.exports = app;\n\n\n//# sourceURL=webpack:///./src/server.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst app_express_1 = __webpack_require__(/*! ./app.express */ \"./src/app.express.ts\");\napp_express_1.default.listen(app_express_1.default.get('port'), () => {\n    console.log(('App is running at http://localhost:%d in %s mode'), app_express_1.default.get('port'), app_express_1.default.get('env'));\n    console.log('Press CTRL-C to stop\\n');\n});\n\n\n//# sourceURL=webpack:///./src/server.ts?");
 
 /***/ }),
 
